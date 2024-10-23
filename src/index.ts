@@ -1,3 +1,3 @@
-import { hello } from './getExactNcst';
+import { getKakaoNcst } from './getExactNcst';
 
-export { hello };
+export { getKakaoNcst };
