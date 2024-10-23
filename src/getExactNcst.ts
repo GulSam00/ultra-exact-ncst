@@ -1,11 +1,6 @@
 import axios from 'axios';
 import { format, getMinutes, subHours } from 'date-fns';
-
 import _code_local from './short_api_code.json';
-const code_local = _code_local as ICodeCoordJson[];
-
-const kakaoURL = 'http://dapi.kakao.com/v2/local';
-const ncstURL = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0';
 
 interface ICodeCoordJson {
   code: number;
@@ -16,38 +11,11 @@ interface ICodeCoordJson {
   y: number;
 }
 
-export interface IRegion {
-  address_name: string;
-  code: string;
-  region_1depth_name: string;
-  region_2depth_name: string;
-  region_3depth_name: string;
-  region_4depth_name: string;
-  region_type: string;
-  x: number;
-  y: number;
-}
+const code_local = _code_local as ICodeCoordJson[]; // 타입 정의는 유지
+const kakaoURL = 'http://dapi.kakao.com/v2/local';
+const ncstURL = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0';
 
-interface getNcstTypes {
-  x: number;
-  y: number;
-  kakaoKey?: string;
-  ncstKey?: string;
-}
-
-// config 파일 읽는 함수
-// const loadConfig = () => {
-//   const configPath = path.resolve(process.cwd(), 'uen.config.json');
-
-//   if (!fs.existsSync(configPath)) {
-//     throw new Error('gen.config.json 파일을 찾을 수 없습니다. API 키를 설정하세요.');
-//   }
-
-//   const configData = fs.readFileSync(configPath, 'utf-8');
-//   return JSON.parse(configData);
-// };
-
-const getNcst = async ({ x, y, ncstKey }: getNcstTypes): Promise<any> => {
+const getNcst = async ({ x, y, ncstKey }) => {
   const url = ncstURL + '/getUltraSrtNcst';
   if (!ncstKey) throw new Error('API 키가 필요합니다.');
 
@@ -83,7 +51,7 @@ const getNcst = async ({ x, y, ncstKey }: getNcstTypes): Promise<any> => {
   }
 };
 
-export const getKakaoNcst = async ({ x, y, kakaoKey, ncstKey }: getNcstTypes): Promise<any> => {
+export const getKakaoNcst = async ({ x, y, kakaoKey, ncstKey }) => {
   const url = kakaoURL + '/geo/coord2regioncode';
 
   if (!kakaoKey || !ncstKey) throw new Error('API 키가 필요합니다.');
@@ -99,7 +67,7 @@ export const getKakaoNcst = async ({ x, y, kakaoKey, ncstKey }: getNcstTypes): P
       },
     });
 
-    const documents = result.data.documents as IRegion[];
+    const documents = result.data.documents;
     const localeCode = documents[1].code;
     const parsedLocal = code_local.find(item => item.code === Number(localeCode));
     if (!parsedLocal) throw new Error('지역 코드를 찾을 수 없습니다.');

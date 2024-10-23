@@ -11,6 +11,7 @@
     /* Emit */
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
     "resolveJsonModule": true,
+    "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
 
     /* Interop Constraints */
    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
