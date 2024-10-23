@@ -1,6 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import { format, getMinutes, subHours } from 'date-fns';
 
 import _code_local from './short_api_code.json';
@@ -33,25 +31,26 @@ export interface IRegion {
 interface getNcstTypes {
   x: number;
   y: number;
+  kakaoKey?: string;
+  ncstKey?: string;
 }
 
 // config 파일 읽는 함수
-const loadConfig = () => {
-  const configPath = path.resolve(process.cwd(), 'config.json');
+// const loadConfig = () => {
+//   const configPath = path.resolve(process.cwd(), 'uen.config.json');
 
-  if (!fs.existsSync(configPath)) {
-    throw new Error('config.json 파일을 찾을 수 없습니다. API 키를 설정하세요.');
-  }
+//   if (!fs.existsSync(configPath)) {
+//     throw new Error('gen.config.json 파일을 찾을 수 없습니다. API 키를 설정하세요.');
+//   }
 
-  const configData = fs.readFileSync(configPath, 'utf-8');
-  return JSON.parse(configData);
-};
+//   const configData = fs.readFileSync(configPath, 'utf-8');
+//   return JSON.parse(configData);
+// };
 
-const getNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
-  const config = loadConfig();
+const getNcst = async ({ x, y, ncstKey }: getNcstTypes): Promise<any> => {
   const url = ncstURL + '/getUltraSrtNcst';
+  if (!ncstKey) throw new Error('API 키가 필요합니다.');
 
-  const ncstKey = config.ncstKey;
   const params = {
     serviceKey: ncstKey,
     dataType: 'JSON',
@@ -74,8 +73,6 @@ const getNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
   try {
     const result = await axios.get(url, { params });
     const data = result.data.response.body.items.item;
-    console.log('ncst result', data);
-
     return data;
   } catch (e) {
     let message;
@@ -86,9 +83,11 @@ const getNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
   }
 };
 
-export const getKakaoNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
-  const config = loadConfig();
+export const getKakaoNcst = async ({ x, y, kakaoKey, ncstKey }: getNcstTypes): Promise<any> => {
   const url = kakaoURL + '/geo/coord2regioncode';
+
+  if (!kakaoKey || !ncstKey) throw new Error('API 키가 필요합니다.');
+
   try {
     const result = await axios.get(url, {
       params: {
@@ -96,11 +95,10 @@ export const getKakaoNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
         y,
       },
       headers: {
-        Authorization: `KakaoAK ${config.kakaoKey}`,
+        Authorization: `KakaoAK ${kakaoKey}`,
       },
     });
 
-    console.log('kakao result', result);
     const documents = result.data.documents as IRegion[];
     const localeCode = documents[1].code;
     const parsedLocal = code_local.find(item => item.code === Number(localeCode));
@@ -108,7 +106,7 @@ export const getKakaoNcst = async ({ x, y }: getNcstTypes): Promise<any> => {
 
     const { x: nx, y: ny } = parsedLocal;
 
-    return getNcst({ x: nx, y: ny });
+    return getNcst({ x: nx, y: ny, ncstKey });
   } catch (e) {
     let message;
     if (e instanceof Error) message = e.message;
