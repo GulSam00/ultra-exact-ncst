@@ -1,3 +1,3 @@
-import { getKakaoNcst } from './getExactNcst';
+import { getKakaoLocal, getKakaoNcst } from './getExactNcst';
 
-export { getKakaoNcst };
+export { getKakaoLocal, getKakaoNcst };

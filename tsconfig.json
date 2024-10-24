@@ -11,7 +11,9 @@
     /* Emit */
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
     "resolveJsonModule": true,
-    "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "declaration": true,                                 /* .d.ts 파일을 자동으로 생성한다. */
+    "declarationMap": true,                              /* d.ts 파일에 대한 소스맵을 생성한다. */
+    "sourceMap": true,                                   /* 소스맵을 생성한다. */
 
     /* Interop Constraints */
    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
@@ -21,7 +23,7 @@
     "strict": true,                                      /* Enable all strict type-checking options. */
     
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": false                                 /* Skip type checking all .d.ts files. */
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
