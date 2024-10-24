@@ -5,7 +5,7 @@
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
    
     /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
+    "module": "ESNext",                                /* Specify what module code is generated. */
     "rootDir": "./src",                                  /* Specify the root folder within your source files. */
 
     /* Emit */
@@ -14,7 +14,7 @@
     "declaration": true,                                 /* .d.ts 파일을 자동으로 생성한다. */
     "declarationMap": true,                              /* d.ts 파일에 대한 소스맵을 생성한다. */
     "sourceMap": true,                                   /* 소스맵을 생성한다. */
-
+    "moduleResolution": "node",                          /* 모듈 해석 방식을 지정한다. */
     /* Interop Constraints */
    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
