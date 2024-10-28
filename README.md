@@ -22,7 +22,7 @@
 > 이 패키지는 TypeScript를 지원합니다. 별도의 설정 없이 타입 정의 파일이 포함되어 있어, 자동으로 타입 정보를 제공받을 수 있습니다.
 
 ```js
-import { getKakaoNcst, getKakaoLocal } from 'ultra-exact-ncst';
+import { getKakaoNcst, getKakaoLocal, getNcst } from 'ultra-exact-ncst';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -30,11 +30,14 @@ const kakaoKey = process.env.KAKAO_KEY;
 const ncstKey = process.env.NCST_KEY;
 
 
-const localResult = await getKakaoLocal({ x: 126.65955373649118, y: 37.42760161347335, kakaoKey });
-const nowcastResult = await getKakaoNcst({ x: 126.65955373649118, y: 37.42760161347335, kakaoKey, ncstKey });
+const kakaoLocalResult = await getKakaoLocal({ x: 126.65955373649118, y: 37.42760161347335, kakaoKey });
+const kakaoNcstResult = await getKakaoNcst({ x: 126.65955373649118, y: 37.42760161347335, kakaoKey, ncstKey });
 
-console.log(localResult);
-console.log(nowcastResult);
+const ncstResult = await getNcst({x : 54, y : 124, ncstKey});
+
+console.log("kakaoLocalResult", kakaoLocalResult);
+console.log("kakaoNcstResult", kakaoNcstResult);
+console.log("ncstResult", ncstResult);
 ```
 
 ## Install
