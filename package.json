@@ -1,6 +1,6 @@
 {
   "name": "ultra-exact-ncst",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "nowcast with coordinate",
   "main": "dist/index.js",
   "type": "module",

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { format, getMinutes, subHours } from 'date-fns';
-import _code_local from './short_api_code.json';
+import _code_local from './short_api_code.json' assert { type: 'json' };
 
 interface ICodeCoordJson {
   code: number;
