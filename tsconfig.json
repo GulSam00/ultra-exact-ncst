@@ -2,10 +2,9 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
     /* Language and Environment */
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-   
+    "target": "ESNext",                                  /* 어떤 ECMAScript 버전으로 컴파일할지 결정한다. */
     /* Modules */
-    "module": "ESNext",                                /* Specify what module code is generated. */
+    "module": "ESNext",                                /* import 문을 어떤 모듈 시스템으로 번역할지 결정한다. */
     "moduleResolution": "node",                          /* Specify how TypeScript looks up a file from a given module specifier. */
     "rootDir": "./src",                                  /* Specify the root folder within your source files. */
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
