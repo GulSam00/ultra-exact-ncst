@@ -4,14 +4,10 @@ import _code_local from './short_api_code.json' assert { type: 'json' };
 
 interface ICodeCoordJson {
   code: number;
+  address_name: string;
   depth1: string;
   depth2: string;
   depth3: string;
-  x: number;
-  y: number;
-}
-
-export interface getKakaoLocalResponseTypes {
   x: number;
   y: number;
 }
@@ -35,13 +31,15 @@ export interface WeatherData {
 export type GetNcstResponseTypes = WeatherData[];
 
 const code_local = _code_local as ICodeCoordJson[]; // 타입 정의는 유지
+
 const kakaoURL = 'http://dapi.kakao.com/v2/local';
 const ncstURL = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0';
 
-const getNcst = async ({ x, y, ncstKey }: GetNcstRequestTypes): Promise<GetNcstResponseTypes | undefined> => {
+export const getNcst = async ({ x, y, ncstKey }: GetNcstRequestTypes): Promise<GetNcstResponseTypes | undefined> => {
   const url = ncstURL + '/getUltraSrtNcst';
-  if (!ncstKey) throw new Error('API 키가 필요합니다.');
 
+  if (!x || !y) throw new Error('좌표값이 유효하지 않습니다.');
+  if (!ncstKey) throw new Error('API 키가 필요합니다.');
   const params = {
     serviceKey: ncstKey,
     dataType: 'JSON',
@@ -74,11 +72,7 @@ const getNcst = async ({ x, y, ncstKey }: GetNcstRequestTypes): Promise<GetNcstR
   }
 };
 
-export const getKakaoLocal = async ({
-  x,
-  y,
-  kakaoKey,
-}: GetNcstRequestTypes): Promise<getKakaoLocalResponseTypes | undefined> => {
+export const getKakaoLocal = async ({ x, y, kakaoKey }: GetNcstRequestTypes): Promise<ICodeCoordJson | undefined> => {
   const url = kakaoURL + '/geo/coord2regioncode';
 
   if (!kakaoKey) throw new Error('API 키가 필요합니다.');
@@ -94,13 +88,14 @@ export const getKakaoLocal = async ({
       },
     });
 
-    const documents = result.data.documents;
-    const localeCode = documents[1].code;
-    const parsedLocal = code_local.find(item => item.code === Number(localeCode));
-    if (!parsedLocal) throw new Error('지역 코드를 찾을 수 없습니다.');
-
-    const { x: nx, y: ny } = parsedLocal;
-    return { x: nx, y: ny };
+    const document = result.data.documents[1];
+    const { code, region_3depth_name } = document;
+    const parsedLocal = code_local.find(item => item.code === Number(code));
+    if (!parsedLocal) {
+      const depth3Local = code_local.find(item => item.depth3 === region_3depth_name);
+      return depth3Local;
+    }
+    return parsedLocal;
   } catch (e) {
     let message;
     if (e instanceof Error) message = e.message;
