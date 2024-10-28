@@ -50,9 +50,9 @@ npm i ultra-exact-ncst
 
 👤 **GulSam00**
 
-* Website: https://github.com/GulSam00
 * Github: [@GulSam00](https://github.com/GulSam00)
-* LinkedIn: [@SangJoon  Ham]([https://linkedin.com/in/SangJoon Ham](https://www.linkedin.com/in/sang-joon-ham-b53805220/))
+* Mail: gulsamcono@gmail.com
+* Blog : https://velog.io/@sham/posts
 
 ## 🤝 Contributing
 
