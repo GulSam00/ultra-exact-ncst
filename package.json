@@ -1,17 +1,17 @@
 {
   "name": "ultra-exact-ncst",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "nowcast with coordinate",
   "type": "module",
   "exports": {
     ".": {
       "types": {
         "require": "./dist/cjs/types/index.d.ts",
-        "default": "./dist/esm/types/index.d.ts"
+        "import": "./dist/esm/types/index.d.ts"
       },
       "default": {
         "require": "./dist/cjs/index.js",
-        "default": "./dist/esm/index.js"
+        "import": "./dist/esm/index.js"
       }
     }
   },

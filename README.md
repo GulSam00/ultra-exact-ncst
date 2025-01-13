@@ -40,7 +40,7 @@ console.log("kakaoNcstResult", kakaoNcstResult);
 console.log("ncstResult", ncstResult);
 ```
 
-> 이 패키지는 CJS와 ESM을 모두 지원합니다. 따라서, `require`를 사용하여 불러오거나, `import`를 사용하여 불러올 수 있습니다.
+> 이 패키지는 CJS와 ESM을 모두 지원합니다. 따라서, `require`를 사용하여 불러오거나 `import`를 사용하여 불러오는 것이 가능합니다.
 
 ```js
 const { getKakaoNcst, getKakaoLocal, getNcst } = require('ultra-exact-ncst');
