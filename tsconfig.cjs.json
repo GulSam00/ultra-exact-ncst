@@ -1,0 +1,8 @@
+{
+    "extends": "./tsconfig.esm.json",
+    "compilerOptions": {
+      "module": "CommonJS",                     /* CJS 모듈 시스템으로 변경 */
+      "outDir": "./dist/cjs",                   /* CommonJS 빌드 출력 경로 */
+      "declarationDir": "./dist/cjs/types"      /* CJS 타입 정의 파일 경로 */
+    }
+}
