@@ -1,6 +1,6 @@
 {
   "name": "ultra-exact-ncst",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "nowcast with coordinate",
   "type": "module",
   "exports": {
