@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { format, getMinutes, subHours } from 'date-fns';
-// @ts-ignore
+
 import _code_local from './parse_api_code.js';
 import { ICodeCoordJson, GetNcstRequestTypes, GetNcstResponseTypes } from './types';
 

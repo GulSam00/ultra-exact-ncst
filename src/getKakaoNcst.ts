@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getParamsByCode, getNcst } from './getExactNcst';
+import { getParamsByCode, getNcst } from './getExactNcst.js';
 import { ICodeCoordJson, getKakaoNcstRequestTypes, GetNcstResponseTypes } from './types';
 
 const kakaoURL = 'http://dapi.kakao.com/v2/local';
