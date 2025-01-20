@@ -8,13 +8,18 @@ export interface ICodeCoordJson {
   y: number;
 }
 
-export interface GetNcstRequestTypes {
+export interface GetParamsByCodeRequest {
+  code: number;
+  dong?: string;
+}
+
+export interface GetNcstRequest {
   x: number;
   y: number;
   ncstKey: string;
 }
 
-export interface getKakaoNcstRequestTypes {
+export interface GetKakaoNcstRequest {
   x: number;
   y: number;
   kakaoKey: string;

@@ -1,15 +1,11 @@
 import axios from 'axios';
 
 import { getParamsByCode, getNcst } from './getExactNcst.js';
-import { ICodeCoordJson, getKakaoNcstRequestTypes, GetNcstResponseTypes } from './types';
+import { ICodeCoordJson, GetKakaoNcstRequest, GetNcstResponseTypes } from './types';
 
 const kakaoURL = 'http://dapi.kakao.com/v2/local';
 
-export const getKakaoLocal = async ({
-  x,
-  y,
-  kakaoKey,
-}: getKakaoNcstRequestTypes): Promise<ICodeCoordJson | undefined> => {
+export const getKakaoLocal = async ({ x, y, kakaoKey }: GetKakaoNcstRequest): Promise<ICodeCoordJson | undefined> => {
   try {
     if (typeof x !== 'number' || typeof y !== 'number') throw new Error('x, y 자료형이 number가 아닙니다.');
     if (!kakaoKey) throw new Error('kakaoKey가 필요합니다.');
@@ -28,7 +24,7 @@ export const getKakaoLocal = async ({
     if (!document) throw new Error('API 요청이 실패했습니다.');
 
     const { code, region_3depth_name } = document;
-    const parsedLocal = getParamsByCode(code, region_3depth_name);
+    const parsedLocal = getParamsByCode({ code, dong: region_3depth_name });
 
     return parsedLocal;
   } catch (e) {
@@ -43,7 +39,7 @@ export const getKakaoNcst = async ({
   y,
   kakaoKey,
   ncstKey,
-}: getKakaoNcstRequestTypes): Promise<GetNcstResponseTypes | undefined> => {
+}: GetKakaoNcstRequest): Promise<GetNcstResponseTypes | undefined> => {
   try {
     if (typeof x !== 'number' || typeof y !== 'number') throw new Error('x, y 자료형이 number가 아닙니다.');
 
